@@ -6,6 +6,10 @@ A multi-agent question-answering assistant over **RBI and SEBI regulatory circul
 It answers only from the source documents, cites every claim, refuses questions outside its scope, and is measured by an automated evaluation suite.
 It is also exposed as an **MCP server**, so Claude and other AI clients can use it as a tool.
 
+Built entirely on **free and open-source** components: Groq's free tier with a local Ollama fallback for the LLM, CPU embeddings and reranking, and self-hosted PostgreSQL and Arize Phoenix.
+
+**Design:** [docs/architecture.md](docs/architecture.md)
+
 ## Why
 
 Regulatory text is long, cross-referenced and constantly amended, which is exactly where plain vector search breaks down.
@@ -39,15 +43,18 @@ flowchart LR
 
 ## Tech stack
 
-Python · LangGraph · FAISS · PostgreSQL + pgvector · BM25 · reranker · embeddings · RAGAS · FastAPI · MCP Python SDK · Streamlit · Docker Compose · pytest · GitHub Actions
+Python · LangGraph · Groq (free tier) + Ollama · fastembed (bge-small, MiniLM reranker) · FAISS · PostgreSQL + pgvector · BM25 · RAGAS · FastAPI · MCP Python SDK · Streamlit · OpenTelemetry + Arize Phoenix · Docker Compose · pytest · GitHub Actions
 
 ## Evaluation
 
 | Retrieval setup | Faithfulness | Answer relevance | Context precision | Context recall |
 |---|---|---|---|---|
-| Vector search only | TBD | TBD | TBD | TBD |
+| Dense only (pgvector) | TBD | TBD | TBD | TBD |
+| Dense only (FAISS) | TBD | TBD | TBD | TBD |
+| BM25 only | TBD | TBD | TBD | TBD |
 | Hybrid (BM25 + FAISS) | TBD | TBD | TBD | TBD |
-| **Hybrid + rerank + agentic re-query** | TBD | TBD | TBD | TBD |
+| Hybrid + rerank | TBD | TBD | TBD | TBD |
+| **Full agentic (planner, re-query, verifier)** | TBD | TBD | TBD | TBD |
 
 *Results will be published here when the eval suite runs.*
 
